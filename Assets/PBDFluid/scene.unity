@@ -1806,7 +1806,7 @@ PrefabInstance:
     - target: {fileID: 3131330729439696591, guid: 506f8f98ac6976445a4cd35839deb8b6,
         type: 3}
       propertyPath: m_drawFluidParticles
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3131330729439696591, guid: 506f8f98ac6976445a4cd35839deb8b6,
         type: 3}
