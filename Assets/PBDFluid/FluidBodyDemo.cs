@@ -50,7 +50,6 @@ namespace PBDFluid
         public float m_density = 1000.0f;
         float m_radius = 0.08f;
         public float m_particleFactor = 1f;
-        public Transform targetTransform;
 
         private bool wasError;
 

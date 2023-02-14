@@ -109,7 +109,7 @@ namespace PBDFluid
 
                 UpdatePositions();
 
-                CheckCollision();
+                // CheckCollision();
             }
   
         }
@@ -207,16 +207,16 @@ namespace PBDFluid
             buffers[1] = tmp;
         }
 
-        void CheckCollision() {
-            int kernel = m_shader.FindKernel("CheckCollision");
+        // void CheckCollision() {
+        //     int kernel = m_shader.FindKernel("CheckCollision");
 
-            m_shader.SetBuffer(kernel, "Positions", Body.Positions);
-            m_shader.SetBuffer(kernel, "PredictedREAD", Body.Predicted[READ]);
+        //     m_shader.SetBuffer(kernel, "Positions", Body.Positions);
+        //     m_shader.SetBuffer(kernel, "PredictedREAD", Body.Predicted[READ]);
 
-            m_shader.Dispatch(kernel, Groups, 1, 1);
+        //     m_shader.Dispatch(kernel, Groups, 1, 1);
 
 
-        }
+        // }
     }
 
 }

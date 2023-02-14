@@ -366,7 +366,7 @@ float3 ComputeViscosity(int id, float3 pi)
 		if (dist2 >= KernelRadius2) continue;
 
 		float invDensity = 1.0f / Densities[n];
-		float v = ViscLapKernel(dist2) * viscosityMulMass * invDensity;
+		float v = ViscLapKernel(dist2) * viscosityMulMass * invDensity * 0.001;
 		velocity -= v * (velocity - VelocitiesREAD[n].xyz);
 	}
 
@@ -402,18 +402,18 @@ void UpdatePositions(int id : SV_DispatchThreadID)
 	}
 }
 
-#pragma kernel ComputeVolume
+// #pragma kernel CheckCollision
 
-[numthreads(THREADS, 1, 1)]
-void CheckCollision(int3 id : SV_DispatchThreadID)
-{
+// [numthreads(THREADS, 1, 1)]
+// void CheckCollision(int3 id : SV_DispatchThreadID)
+// {
 
-	if (id < NumParticles)
-	{
-		for (size_t i = 0; i < NumCollisionObjects; i++)
-		{
-			Positions[id] = PredictedREAD[id];
-		}
-	}
+// 	if (id < NumParticles)
+// 	{
+// 		for (size_t i = 0; i < NumCollisionObjects; i++)
+// 		{
+// 			Positions[id] = PredictedREAD[id];
+// 		}
+// 	}
 
-}
+// }
