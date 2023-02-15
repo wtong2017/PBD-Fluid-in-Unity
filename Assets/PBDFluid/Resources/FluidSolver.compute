@@ -326,7 +326,7 @@ void UpdateVelocities(int id : SV_DispatchThreadID)
 		float4 p = Positions[id];
 		float4 pi = PredictedREAD[id];
 
-		float4 velocity = (pi - p) / DeltaTime;
+		float4 velocity = (pi - p) / DeltaTime / 2;
 
 		VelocitiesWRITE[id] = velocity;
 	}

@@ -13,8 +13,11 @@ Shader "PBDFluid/Volume"
 
 		GrabPass { "BackGroundTexture" }
 
-		cull front
-		ztest always
+		//ZWrite off
+		//cull front
+		//ztest always
+		//ZTest LEqual
+		//ZWrite On
 		blend SrcAlpha OneMinusSrcAlpha
 
 		Pass
@@ -117,8 +120,11 @@ Shader "PBDFluid/Volume"
 				}
 
 				float3 col = grab * exp(-AbsorptionCoff * density * AbsorptionScale);
-
-				return float4(col, 1);
+				
+				if (density > 0)
+					return float4(col, 1);
+				else
+					return float4(0, 0, 0, 0);
 			}
 			ENDCG
 		}
