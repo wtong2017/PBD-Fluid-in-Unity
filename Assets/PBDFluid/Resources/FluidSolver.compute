@@ -326,7 +326,7 @@ void UpdateVelocities(int id : SV_DispatchThreadID)
 		float4 p = Positions[id];
 		float4 pi = PredictedREAD[id];
 
-		float4 velocity = (pi - p) / DeltaTime / 2;
+		float4 velocity = (pi - p) / DeltaTime;
 
 		VelocitiesWRITE[id] = velocity;
 	}
@@ -366,7 +366,7 @@ float3 ComputeViscosity(int id, float3 pi)
 		if (dist2 >= KernelRadius2) continue;
 
 		float invDensity = 1.0f / Densities[n];
-		float v = ViscLapKernel(dist2) * viscosityMulMass * invDensity * 0.001;
+		float v = ViscLapKernel(dist2) * viscosityMulMass * invDensity;
 		velocity -= v * (velocity - VelocitiesREAD[n].xyz);
 	}
 

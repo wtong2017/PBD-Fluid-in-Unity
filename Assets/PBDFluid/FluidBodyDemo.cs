@@ -56,6 +56,8 @@ namespace PBDFluid
         //public GameObject m_gameObject
         public LayerMask m_layer;
 
+        public GameObject renderVolumn;
+
         private void Start() {
             innerSource.size = transform.lossyScale;
             innerSource.center = transform.position;
@@ -91,7 +93,7 @@ namespace PBDFluid
 
                 m_solver = new FluidSolver(m_fluid, m_boundary);
 
-                m_volume = new RenderVolume(m_boundary.Bounds, radius);
+                m_volume = new RenderVolume(m_boundary.Bounds, radius, renderVolumn);
                 m_volume.CreateMesh(m_volumeMat);
             }
             catch {
@@ -124,7 +126,7 @@ namespace PBDFluid
 
             if (m_run) {
                 m_solver.StepPhysics(timeStep);
-                m_volume.FillVolume(m_fluid, m_solver.Hash, m_solver.Kernel);
+                m_volume.FillVolume(m_fluid, m_solver.Hash, m_solver.Kernel, m_volumeMat);
             }
 
             m_volume.Hide = !m_drawFluidVolume;

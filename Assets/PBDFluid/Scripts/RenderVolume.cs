@@ -23,8 +23,9 @@ namespace PBDFluid
 
         private GameObject m_mesh;
 
-        public RenderVolume(Bounds bounds, float pixelSize)
+        public RenderVolume(Bounds bounds, float pixelSize, GameObject renderVolumn)
         {
+            m_mesh = renderVolumn;
             PixelSize = pixelSize;
 
             Vector3 min, max;
@@ -101,8 +102,8 @@ namespace PBDFluid
         /// </summary>
         public void CreateMesh(Material material)
         {
-
-            m_mesh = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            if (m_mesh == null)
+                m_mesh = GameObject.CreatePrimitive(PrimitiveType.Cube);
             m_mesh.GetComponent<MeshRenderer>().sharedMaterial = material;
             m_mesh.GetComponent<BoxCollider>().enabled = false;
 
@@ -122,10 +123,14 @@ namespace PBDFluid
         /// That texture can then be used to render the fluid by
         /// ray tracing in the meshes shader.
         /// </summary>
-        public void FillVolume(FluidBody body, GridHash grid, SmoothingKernel kernel)
+        public void FillVolume(FluidBody body, GridHash grid, SmoothingKernel kernel, Material material)
         {
 
             int computeKernel = m_shader.FindKernel("ComputeVolume");
+
+            //Bounds.center = m_mesh.transform.position;
+            material.SetVector("Translate", m_mesh.transform.position);
+            material.SetVector("Scale", m_mesh.transform.localScale);
 
             m_shader.SetFloat("VolumeScale", PixelSize);
             m_shader.SetVector("VolumeSize", Bounds.size);
