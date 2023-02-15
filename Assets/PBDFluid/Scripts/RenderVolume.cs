@@ -107,9 +107,11 @@ namespace PBDFluid
             m_mesh.GetComponent<MeshRenderer>().sharedMaterial = material;
             m_mesh.GetComponent<BoxCollider>().enabled = false;
 
-            Bounds bounds = WorldBounds;
-            m_mesh.transform.position = bounds.center;
-            m_mesh.transform.localScale = bounds.size;
+            if (m_mesh == null) {
+                Bounds bounds = WorldBounds;
+                m_mesh.transform.position = bounds.center;
+                m_mesh.transform.localScale = bounds.size;
+            }
             
             material.SetVector("Translate", m_mesh.transform.position);
             material.SetVector("Scale", m_mesh.transform.localScale);
